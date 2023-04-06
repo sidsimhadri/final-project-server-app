@@ -7,11 +7,11 @@ const spotifyApi = new SpotifyWebApi({
 });
 
 const SpotifyController = (app) => {
-    app.get('/api/album/:albumId', findAlbum);
-    app.get('/api/albums/:artistId', findArtistAlbums);
-    app.get('/api/newreleases', findNewReleases);
-    app.get('/api/search', findSearchResults);
-    app.get('/api/playlist/:playlistId', findPlaylist);
+    app.get('/api/spotify/album/:albumId', findAlbum);
+    app.get('/api/spotify/albums/:artistId', findArtistAlbums);
+    app.get('/api/spotify/newreleases', findNewReleases);
+    app.get('/api/spotify/search', findSearchResults);
+    app.get('/api/spotify/playlist/:playlistId', findPlaylist);
 }
 spotifyApi.clientCredentialsGrant()
   .then(data => {
