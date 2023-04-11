@@ -10,7 +10,8 @@ const SpotifyController = (app) => {
     app.get('/api/spotify/album/:albumId', findAlbum);
     app.get('/api/spotify/albums/:artistId', findArtistAlbums);
     app.get('/api/spotify/newreleases', findNewReleases);
-    app.get('/api/spotify/search', findSearchResults);
+    app.get('/api/spotify/searchAlbums', searchAlbums);
+    app.get('/api/spotify/searchArtists', searchArtists);
     app.get('/api/spotify/playlist/:playlistId', findPlaylist);
 }
 spotifyApi.clientCredentialsGrant()
@@ -59,10 +60,21 @@ const findNewReleases = async (req, res) => {
     }
 }
 
-const findSearchResults = async (req, res) => {
+const searchAlbums = async (req, res) => {
     try {
         const query = req.query
         const results = await spotifyApi.searchAlbums(query)
+        res.json(results)
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({error: 'Something went wrong'})
+    }
+}
+const searchArtists = async (req, res) => {
+    try {
+        const query = req.query
+        const results = await spotifyApi.searchArtists(query)
         res.json(results)
     }
     catch (err) {
