@@ -3,7 +3,7 @@ const schema = mongoose.Schema({
   body: String,
   upvotes: Number,
   downvotes: Number,
-  timestamps: Number,
+  timestamp: Date,
   albumid: Number,
   userid: Number
 }, {collection: 'reviews'});
