@@ -6,6 +6,8 @@ import ReviewController from './controllers/reviews/reviews-controller.js';
 import TagController from './controllers/tags/tags-controller.js';
 import SpotifyController from './controllers/spotify/spotify-controller.js';
 import session from 'express-session';
+import mongoose from "mongoose";
+mongoose.connect('mongodb://127.0.0.1:27017/trackstar');
 const app = express()
 app.use(session({
     secret: "secret",

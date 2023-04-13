@@ -1,4 +1,5 @@
 import reviewssss from './reviews.js'
+import * as reviewsDao from "./reviews-dao.js";
 let reviews = reviewssss
 
 const ReviewController = (app) => {
@@ -9,30 +10,34 @@ const ReviewController = (app) => {
    app.put('/api/reviews/:rid', updateReview);
 }
 
-const findReviews = (req, res) => {
-  const albumId = req.query.albumId
-  const userId = req.query.userId
-  if(albumId) {
-    const reviewsByAlbumId = reviews
-      .filter(r => r.albumId === albumId)
-    res.json(reviewsByAlbumId)
-    return
-  }
-  if(userId) {
-    const reviewsByUserId = reviews
-      .filter(r => r.userId === userId)
-    res.json(reviewsByUserId)
-    return
-  }
+const findReviews = async (req, res) => {
+  const reviews = await reviewsDao.findReviews()
+  // const albumId = req.query.albumId
+  // const userId = req.query.userId
+  // if(albumId) {
+  //   const reviewsByAlbumId = reviews
+  //     .filter(r => r.albumId === albumId)
+  //   res.json(reviewsByAlbumId)
+  //   return
+  // }
+  // if(userId) {
+  //   const reviewsByUserId = reviews
+  //     .filter(r => r.userId === userId)
+  //   res.json(reviewsByUserId)
+  //   return
+  // }
   res.json(reviews)
 }
 
-const findReviewById = (req, res) => {
+const findReviewById = async (req, res) => {
+  
   const reviewId = req.params.rid;
+  // const review = await reviewsDao.findReviewsbyId(req.params.rid)
   const review = reviews
     .find(r => r._id === reviewId);
   res.json(review);
 }
+
 
 const createReview = (req, res) => {
   const newReview = req.body;
@@ -41,7 +46,7 @@ const createReview = (req, res) => {
   res.json(newReview);
 }
 
-const deleteReview = (req, res) => {
+const deleteReview =  (req, res) => {
   const reviewId = req.params['rid'];
   reviews = reviews.filter(rvw =>
     rvw._id !== reviewId);
