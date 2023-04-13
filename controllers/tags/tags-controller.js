@@ -7,7 +7,7 @@ const TagController = (app) => {
 }
 
 const findTags = async (req, res) => {
-  const tags = await tagDao.findReviews()
+  const tags = await tagDao.findTags()
   res.json(tags)
 }
 
