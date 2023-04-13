@@ -21,7 +21,7 @@ const findReviewById = async (req, res) => {
 
 const createReview = async (req, res) => {
   const newReview = req.body;
-  newReview.timeStamp = new Date();
+  newReview.timestamp = new Date();
   newReview.upvotes = 0;
   newReview.downvotes = 0;
   const insertedReview = await reviewsDao
