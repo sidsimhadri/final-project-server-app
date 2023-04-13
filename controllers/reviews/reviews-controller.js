@@ -1,5 +1,4 @@
-import reviewssss from './reviews.js'
-let reviews = reviewssss
+import * as reviewsDao from "./reviews-dao.js";
 
 const ReviewController = (app) => {
     app.get('/api/reviews', findReviews);
@@ -9,54 +8,40 @@ const ReviewController = (app) => {
    app.put('/api/reviews/:rid', updateReview);
 }
 
-const findReviews = (req, res) => {
-  const albumId = req.query.albumId
-  const userId = req.query.userId
-  if(albumId) {
-    const reviewsByAlbumId = reviews
-      .filter(r => r.albumId === albumId)
-    res.json(reviewsByAlbumId)
-    return
-  }
-  if(userId) {
-    const reviewsByUserId = reviews
-      .filter(r => r.userId === userId)
-    res.json(reviewsByUserId)
-    return
-  }
+const findReviews = async (req, res) => {
+  const reviews = await reviewsDao.findReviews()
   res.json(reviews)
 }
 
-const findReviewById = (req, res) => {
-  const reviewId = req.params.rid;
-  const review = reviews
-    .find(r => r._id === reviewId);
-  res.json(review);
+const findReviewById = async (req, res) => {
+  const reviews = await reviewsDao.findReviewsbyId(req.params.rid)
+  res.json(reviews)
 }
 
-const createReview = (req, res) => {
+
+const createReview = async (req, res) => {
   const newReview = req.body;
-  newReview._id = (new Date()).getTime() + '';
-  reviews.push(newReview);
-  res.json(newReview);
+  newReview.timestamp = new Date();
+  newReview.upvotes = 0;
+  newReview.downvotes = 0;
+  const insertedReview = await reviewsDao
+                             .createReviews(newReview);
+  res.json(insertedReview);
 }
 
-const deleteReview = (req, res) => {
-  const reviewId = req.params['rid'];
-  reviews = reviews.filter(rvw =>
-    rvw._id !== reviewId);
-  res.sendStatus(200);
+const deleteReview =  async (req, res) => {
+  const reviewIdToDelete = req.params.rid;
+  const status = await reviewsDao.deleteReviews(reviewIdToDelete);
+  res.json(status);
 }
 
-const updateReview = (req, res) => {
- const reviewId = req.params['rid'];
- const updates = req.body;
- reviews = reviews.map((rvw) =>
-   rvw._id === reviewId ?
-     {...rvw, ...updates} :
-     rvw
- );
- res.sendStatus(200);
+const updateReview = async (req, res) => {
+  const reviewIdToUpdate = req.params.rid;
+  const updates = req.body;
+  const status = await reviewsDao
+                       .updateReviews(reviewIdToUpdate,
+                                   updates);
+  res.json(status);
 }
 
 

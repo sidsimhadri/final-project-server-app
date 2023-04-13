@@ -1,5 +1,4 @@
-import tagsss from './tags.js'
-let tags = tagsss
+import * as tagDao from "./tags-dao.js"
 
 const TagController = (app) => {
     app.get('/api/tags', findTags);
@@ -7,22 +6,22 @@ const TagController = (app) => {
     app.post('/api/tags', createTag);
 }
 
-const findTags = (req, res) => {
+const findTags = async (req, res) => {
+  const tags = await tagDao.findTags()
   res.json(tags)
 }
 
-const findTagById = (req, res) => {
-  const tagId = req.params.tid;
-  const tag = tags
-    .find(t => t._id === tagId);
-  res.json(tag);
+
+const findTagById = async (req, res) => {
+  const tags = await tagDao.findTagsById(req.params.tid)
+  res.json(tags)
 }
 
-const createTag = (req, res) => {
+const createTag = async (req, res) => {
   const newTag = req.body;
-  newTag._id = (new Date()).getTime() + '';
-  tags.push(newTag);
-  res.json(newTag);
+  const insertedTag = await tagDao
+                             .createTags(newTag);
+  res.json(insertedTag);
 }
 
 
