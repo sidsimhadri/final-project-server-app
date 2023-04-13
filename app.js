@@ -7,15 +7,23 @@ import TagController from './controllers/tags/tags-controller.js';
 import SpotifyController from './controllers/spotify/spotify-controller.js';
 import session from 'express-session';
 import mongoose from "mongoose";
+import AuthController from "./controllers/users/auth-controller.js";
 mongoose.connect('mongodb://127.0.0.1:27017/trackstar');
 const app = express()
 app.use(session({
     secret: "secret",
-    resave: true,
+    resave: false,
     saveUninitialized: true,
 }))
-app.use(cors())
+app.use(
+    cors({
+        credentials: true,
+        origin: "http://localhost:3000",
+    })
+);
+
 app.use(express.json());
+AuthController(app);
 ReviewController(app);
 TagController(app);
 HelloController(app);
