@@ -16,7 +16,6 @@ const SpotifyController = (app) => {
 }
 spotifyApi.clientCredentialsGrant()
   .then(data => {
-    console.log('Access token:', data.body.access_token);
     spotifyApi.setAccessToken(data.body.access_token);
   })
   .catch(error => {
