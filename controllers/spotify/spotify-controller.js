@@ -10,7 +10,7 @@ const SpotifyController = (app) => {
     app.get('/api/spotify/album/:albumId', findAlbum);
     app.get('/api/spotify/albums/:artistId', findArtistAlbums);
     app.get('/api/spotify/newreleases', findNewReleases);
-    app.get('/api/spotify/searchAlbums', searchAlbums);
+    app.get('/api/spotify/searchAlbums/:query', searchAlbums);
     app.get('/api/spotify/searchArtists', searchArtists);
     app.get('/api/spotify/playlist/:playlistId', findPlaylist);
 }
@@ -62,8 +62,7 @@ const findNewReleases = async (req, res) => {
 
 const searchAlbums = async (req, res) => {
     try {
-        const query = req.query
-        const results = await spotifyApi.searchAlbums(query)
+        const results = await spotifyApi.searchAlbums(req.params.query)
         res.json(results)
     }
     catch (err) {
@@ -73,7 +72,7 @@ const searchAlbums = async (req, res) => {
 }
 const searchArtists = async (req, res) => {
     try {
-        const query = req.query
+        const query = req.query.query
         const results = await spotifyApi.searchArtists(query)
         res.json(results)
     }
