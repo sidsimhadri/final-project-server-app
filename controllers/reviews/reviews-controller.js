@@ -5,8 +5,29 @@ const ReviewController = (app) => {
     app.get('/api/reviews/:rid', findReviewById);
     app.post('/api/reviews', createReview);
     app.delete('/api/reviews/:rid', deleteReview);
-   app.put('/api/reviews/:rid', updateReview);
+    app.put('/api/reviews/:rid', updateReview);
+    app.put('/api/reviews/:rid/:tid', addTag);
+    app.put('/api/reviews/:rid/:tid', removeTag);
 }
+
+const addTag = async (req, res) => {
+  const reviewIdToUpdate = req.params.rid;
+  const taggIdToAdd = req.params.tid;
+  const updates = req.body;
+  const status = await reviewsDao
+                      .addTag(reviewIdToUpdate, updates, taggIdToAdd);
+  res.json(status);
+}
+
+const removeTag = async (req, res) => {
+  const reviewIdToUpdate = req.params.rid;
+  const tagIdToRemove = req.params.tid;
+  const updates = req.body;
+  const status = await reviewsDao
+                      .removeTag(reviewIdToUpdate, updates, tagIdToRemove);
+  res.json(status);
+}
+
 
 const findReviews = async (req, res) => {
   const reviews = await reviewsDao.findReviews()
@@ -24,8 +45,7 @@ const createReview = async (req, res) => {
   newReview.timestamp = new Date();
   newReview.upvotes = 0;
   newReview.downvotes = 0;
-  const insertedReview = await reviewsDao
-                             .createReviews(newReview);
+  const insertedReview = await reviewsDao.createReviews(newReview);
   res.json(insertedReview);
 }
 
@@ -39,10 +59,11 @@ const updateReview = async (req, res) => {
   const reviewIdToUpdate = req.params.rid;
   const updates = req.body;
   const status = await reviewsDao
-                       .updateReviews(reviewIdToUpdate,
-                                   updates);
+                      .updateReviews(reviewIdToUpdate, updates);
   res.json(status);
 }
+
+
 
 
 export default ReviewController

@@ -5,8 +5,53 @@ const UserController = (app) => {
     app.get('/api/users/:uid', findUserById);
     app.post('/api/users', createUser);
     app.delete('/api/users/:uid', deleteUser);
-   app.put('/api/users/:uid', updateUser);
+  app.put('/api/users/:uid', updateUser);
+  app.put('/api/users/:uid/:fid', addFollower);
+  app.put('/api/users/:uid/:fid', deleteFollower);
+    app.put('/api/users/:uid/:fid', addFollowing);
+    app.put('/api/users/:uid/:fid', deleteFollowing);
 }
+
+const addFollower = async (req, res) => {
+  const userIdToUpdate = req.params.uid;
+  const followerToAdd = req.params.fid;
+  const updates = req.body;
+  const status = await usersDao
+                       .addFollower(userIdToUpdate,
+                                   updates, followerToAdd);
+  res.json(status);
+}
+
+const deleteFollower = async (req, res) => {
+  const userIdToUpdate = req.params.uid;
+  const followerToDelete = req.params.fid;
+  const updates = req.body;
+  const status = await usersDao
+                       .deleteFollower(userIdToUpdate,
+                                   updates, followerToDelete);
+  res.json(status);
+}
+
+const addFollowing = async (req, res) => {
+  const userIdToUpdate = req.params.uid;
+  const followingToAdd = req.params.fid;
+  const updates = req.body;
+  const status = await usersDao
+                       .addFollower(userIdToUpdate,
+                                   updates, followingToAdd);
+  res.json(status);
+}
+
+const deleteFollowing = async (req, res) => {
+  const userIdToUpdate = req.params.uid;
+  const followingToDelete = req.params.fid;
+  const updates = req.body;
+  const status = await usersDao
+                       .deleteFollower(userIdToUpdate,
+                                   updates, followingToDelete);
+  res.json(status);
+}
+
 
 const findUsers = async (req, res) => {
   const users = await usersDao.findUsers()
