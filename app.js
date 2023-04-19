@@ -9,8 +9,8 @@ import SpotifyController from './controllers/spotify/spotify-controller.js';
 import session from 'express-session';
 import mongoose from "mongoose";
 dotenv.config()
-const CONNECTION_STRING = process.env.DB_CONNECTION_STRING
- || 'mongodb://127.0.0.1:27017/trackstar'
+//process.env.DB_CONNECTION_STRING ||
+const CONNECTION_STRING = 'mongodb://127.0.0.1:27017/trackstar'
 mongoose.connect(CONNECTION_STRING);
 const app = express()
 app.use(session({
