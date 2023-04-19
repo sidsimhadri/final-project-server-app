@@ -3,12 +3,12 @@ import * as reviewsDao from "./reviews-dao.js";
 const ReviewController = (app) => {
     app.get('/api/reviews', findReviews);
   app.get('/api/reviews/:rid', findReviewById);
-      app.get('/api/reviews/:body', findReviewsByBody);
+      app.get('/api/reviews/body/:body', findReviewsByBody);
     app.post('/api/reviews', createReview);
     app.delete('/api/reviews/:rid', deleteReview);
     app.put('/api/reviews/:rid', updateReview);
-    app.put('/api/reviews/:rid/:tid', addTag);
-    app.put('/api/reviews/:rid/:tid', removeTag);
+    app.put('/api/reviews/addTag/:rid/:tid', addTag);
+    app.put('/api/reviews/removeTag/:rid/:tid', removeTag);
 }
 
 const addTag = async (req, res) => {
