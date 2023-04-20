@@ -5,6 +5,7 @@ export const findReviewsbyBody= (body) => reviewsModel.find({body: body});
 export const createReviews = (review) => reviewsModel.create(review);
 export const deleteReviews = (rid) => reviewsModel.deleteOne({_id: rid});
 export const updateReviews = (rid, review) => reviewsModel.updateOne({ _id: rid }, { $set: review })
+export const findReviewsByAlbumId = (aid) => reviewsModel.find({albumid: aid});
 export const addTag = (rid, review, tid) =>
 {
     newReview = {
