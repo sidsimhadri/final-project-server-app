@@ -8,19 +8,29 @@ import TagController from './controllers/tags/tags-controller.js';
 import SpotifyController from './controllers/spotify/spotify-controller.js';
 import session from 'express-session';
 import mongoose from "mongoose";
+
+import AuthController from "./controllers/users/auth-controller.js";
 dotenv.config()
 // const CONNECTION_STRING = process.env.DB_CONNECTION_STRING
 //     || 'mongodb://127.0.0.1:27017/trackstar'
  const CONNECTION_STRING = 'mongodb://127.0.0.1:27017/trackstar'
 mongoose.connect(CONNECTION_STRING);
+
 const app = express()
 app.use(session({
     secret: "secret",
-    resave: true,
+    resave: false,
     saveUninitialized: true,
 }))
-app.use(cors())
+app.use(
+    cors({
+        credentials: true,
+        origin: "http://localhost:3000",
+    })
+);
+
 app.use(express.json());
+AuthController(app);
 ReviewController(app);
 TagController(app);
 HelloController(app);
