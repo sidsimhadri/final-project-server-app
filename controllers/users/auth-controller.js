@@ -44,7 +44,9 @@ const AuthController = (app) => {
         res.sendStatus(200);
       };
      
+
  const update   = async (req, res) => { };
+
 
 
  app.post("/api/users/register", register);

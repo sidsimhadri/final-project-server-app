@@ -1,3 +1,4 @@
+
 import mongoose from "mongoose";
 const usersSchema = new mongoose.Schema(
  {
@@ -7,6 +8,8 @@ const usersSchema = new mongoose.Schema(
    email: String,
    createdAt: { type: Date, default: Date.now },
    isAdmin: { type: Boolean, default: false },
+  followers: [String],
+  following: [String],
    role: {
      type: String,
      default: "user",
