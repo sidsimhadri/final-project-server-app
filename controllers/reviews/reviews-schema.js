@@ -4,8 +4,9 @@ const schema = mongoose.Schema({
   upvotes: Number,
   downvotes: Number,
   timestamp: Date,
-  albumid: Number,
-  userid: Number,
-  tags: [String]
+  albumid: String,
+  userid: String,
+  tags: [String],
+  rating: Number,
 }, {collection: 'reviews'});
 export default schema;

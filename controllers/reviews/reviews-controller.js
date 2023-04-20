@@ -9,7 +9,7 @@ const ReviewController = (app) => {
     app.put('/api/reviews/:rid', updateReview);
     app.put('/api/reviews/:rid/:tid', addTag);
   app.put('/api/reviews/:rid/:tid', removeTag);
-    app.put('/api/reviews/album/:aid', findReviewsByAlbumId);
+    app.get('/api/reviews/album/:aid', findReviewsByAlbumId);
 }
 
 const addTag = async (req, res) => {
@@ -36,8 +36,8 @@ const findReviews = async (req, res) => {
   res.json(reviews)
 }
 const findReviewsByAlbumId = async (req, res) => {
-  const albumId = req.params.albumId
-  const reviews = await reviewsDao.findReviewsByAlbumId(albumId)
+  console.log(req.params.aid)
+  const reviews = await reviewsDao.findReviewsbyAlbumId(req.params.aid)
   res.json(reviews)
 }
 
@@ -54,11 +54,24 @@ const findReviewByBody = async (req, res) => {
 
 
 const createReview = async (req, res) => {
-  const newReview = req.body;
-  newReview.timestamp = new Date();
-  newReview.upvotes = 0;
-  newReview.downvotes = 0;
+  const newReview = {
+    body : req.body.body,
+    timestamp: new Date(),
+    upvotes: 0,
+    downvotes: 0,
+    albumid: req.body.albumId,
+    userid: req.body.userId,
+    rating: req.body.rating,
+    tags: req.body.tags
+
+  }
+  console.log(newReview)
+  // newReview.timestamp = 
+  // newReview.upvotes = 0;
+  // newReview.downvotes = 0;
+
   const insertedReview = await reviewsDao.createReviews(newReview);
+    console.log(insertedReview)
   res.json(insertedReview);
 }
 
