@@ -6,10 +6,10 @@ const UserController = (app) => {
     app.post('/api/users', createUser);
     app.delete('/api/users/:uid', deleteUser);
   app.put('/api/users/:uid', updateUser);
-  app.put('/api/users/:uid/:fid', addFollower);
-  app.put('/api/users/:uid/:fid', deleteFollower);
-    app.put('/api/users/:uid/:fid', addFollowing);
-    app.put('/api/users/:uid/:fid', deleteFollowing);
+  app.put('/api/users/followed/:uid/:fid', addFollower);
+  app.put('/api/users/unfollowed/:uid/:fid', deleteFollower);
+    app.put('/api/users/follow/:uid/:fid', addFollowing);
+    app.put('/api/users/unfollow/:uid/:fid', deleteFollowing);
 }
 
 const addFollower = async (req, res) => {
