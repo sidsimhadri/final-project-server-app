@@ -8,7 +8,7 @@ const ReviewController = (app) => {
     app.delete('/api/reviews/:rid', deleteReview);
     app.put('/api/reviews/:rid', updateReview);
     app.put('/api/reviews/:rid/:tid', addTag);
-  app.put('/api/reviews/:rid/:tid', removeTag);
+    app.put('/api/reviews/:rid/:tid', removeTag);
     app.get('/api/reviews/album/:aid', findReviewsByAlbumId);
 }
 
@@ -36,7 +36,6 @@ const findReviews = async (req, res) => {
   res.json(reviews)
 }
 const findReviewsByAlbumId = async (req, res) => {
-  console.log(req.params.aid)
   const reviews = await reviewsDao.findReviewsbyAlbumId(req.params.aid)
   res.json(reviews)
 }
