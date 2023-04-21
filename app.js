@@ -11,9 +11,9 @@ import mongoose from "mongoose";
 
 import AuthController from "./controllers/users/auth-controller.js";
 dotenv.config()
-// const CONNECTION_STRING = process.env.DB_CONNECTION_STRING
-//     || 'mongodb://127.0.0.1:27017/trackstar'
- const CONNECTION_STRING = 'mongodb://127.0.0.1:27017/trackstar'
+const CONNECTION_STRING = process.env.DB_CONNECTION_STRING
+    || 'mongodb://127.0.0.1:27017/trackstar'
+//  const CONNECTION_STRING = 'mongodb://127.0.0.1:27017/trackstar'
 mongoose.connect(CONNECTION_STRING);
 
 const app = express()
