@@ -9,20 +9,24 @@ const AuthController = (app) => {
   app.put("/api/users", update);
 }
 
-    const register = async (req, res) => {
-        const username = req.body.username;
-        const password = req.body.password;
-        const user = await usersDao
-          .findUserByUsername(username);
-        if (user) {
-          res.sendStatus(409);
-          return;
-        }
-        const newUser = await usersDao
-          .createUsers(req.body);
-        req.session["currentUser"] = newUser;
-        res.json(newUser);
-      };
+const register = async (req, res) => {
+  try {
+    const username = req.body.username;
+    const password = req.body.password;
+    const user = await usersDao.findUserByUsername(username);
+    if (user) {
+      res.sendStatus(409); // Send a 409 status code for conflict
+    } else {
+      const newUser = await usersDao.createUsers(req.body);
+      req.session["currentUser"] = newUser;
+      res.json(newUser);
+    }
+  } catch (error) {
+    res.sendStatus(409)
+  }
+};
+
+
      
       const login = async (req, res) => {
         const username = req.body.username;
