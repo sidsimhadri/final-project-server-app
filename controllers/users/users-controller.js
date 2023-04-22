@@ -72,6 +72,11 @@ const createUser = async (req, res) => {
   const newUser = req.body;
   newUser.followers = 0;
   newUser.following = 0;
+  const user = await usersDao.findUserByUsername(newUser.username)
+  if (user) {
+    res.sendStatus(409)
+    return
+  }
   const insertedUser = await usersDao
                             .createUsers(newUser);
   res.json(insertedUser);
