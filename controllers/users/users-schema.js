@@ -10,6 +10,7 @@ const usersSchema = new mongoose.Schema(
    isAdmin: { type: Boolean, default: false },
   followers: [String],
   following: [String],
+  profilePicture: String,
    role: {
      type: String,
      default: "user",

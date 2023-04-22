@@ -67,6 +67,7 @@ const createUser = async (req, res) => {
   const newUser = req.body;
   newUser.followers = 0;
   newUser.following = 0;
+  newUser.profilePicture = "https://i.pinimg.com/736x/83/bc/8b/83bc8b88cf6bc4b4e04d153a418cde62.jpg";
   const user = await usersDao.findUserByUsername(newUser.username)
   if (user) {
     res.sendStatus(409)
