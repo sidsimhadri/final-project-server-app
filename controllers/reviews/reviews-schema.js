@@ -6,7 +6,7 @@ const schema = mongoose.Schema({
   timestamp: Date,
   albumid: String,
   userid: String,
-  curator: Boolean,
+      curator: { type: Boolean, default: false },
   tags: [String],
   rating: Number,
 }, {collection: 'reviews'});
