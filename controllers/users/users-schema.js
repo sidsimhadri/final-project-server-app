@@ -8,7 +8,7 @@ const usersSchema = new mongoose.Schema(
    email: String,
    createdAt: { type: Date, default: Date.now },
     isAdmin: { type: Boolean, default: false },
-      isAdmin: { type: Boolean, default: false },
+      isCurator: { type: Boolean, default: false },
   followers: [String],
   following: [String],
   profilePicture: String,
