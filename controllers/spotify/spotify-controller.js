@@ -40,8 +40,7 @@ const findAlbum =  async (req, res) => {
 const findArtistAlbums = async (req, res) => {
     const artistId = req.params['artistId'];
     try {
-        const results = await spotifyApi.getArtistAlbums(artistId, {market: "US",
-    include_groups: "album"});
+        const results = await spotifyApi.getArtistAlbums(artistId, {market: "US"});
         res.json(results)
     }
     catch (err) {
