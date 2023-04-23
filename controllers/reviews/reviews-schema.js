@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 const schema = mongoose.Schema({
   body: String,
   upvotes: Number,
+  upvotesArr: [String],
+  downvotesArr: [String],
   downvotes: Number,
   timestamp: Date,
   albumid: String,

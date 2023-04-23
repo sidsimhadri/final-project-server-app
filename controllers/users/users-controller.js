@@ -1,16 +1,16 @@
 import * as usersDao from "./users-dao.js"
 
 const UserController = (app) => {
-    app.get('/api/users', findUsers);
+  app.get('/api/users', findUsers);
   app.get('/api/users/:uid', findUserById);
-    app.get('/api/users/name/:name', findUserByUsername);
-    app.post('/api/users', createUser);
-    app.delete('/api/users/:uid', deleteUser);
+  app.get('/api/users/name/:name', findUserByUsername);
+  app.post('/api/users', createUser);
+  app.delete('/api/users/:uid', deleteUser);
   app.put('/api/users/:uid', updateUser);
   app.put('/api/users/followed/:uid/:fid', addFollower);
   app.put('/api/users/unfollowed/:uid/:fid', deleteFollower);
-    app.put('/api/users/follow/:uid/:fid', addFollowing);
-    app.put('/api/users/unfollow/:uid/:fid', deleteFollowing);
+  app.put('/api/users/follow/:uid/:fid', addFollowing);
+  app.put('/api/users/unfollow/:uid/:fid', deleteFollowing);
 }
 
 const addFollower = async (req, res) => {
@@ -18,8 +18,8 @@ const addFollower = async (req, res) => {
   const followerToAdd = req.params.fid;
   const updates = req.body;
   const status = await usersDao
-                      .addFollower(userIdToUpdate,
-                                  updates, followerToAdd);
+    .addFollower(userIdToUpdate,
+      updates, followerToAdd);
   res.json(status);
 }
 
@@ -28,8 +28,8 @@ const deleteFollower = async (req, res) => {
   const followerToDelete = req.params.fid;
   const updates = req.body;
   const status = await usersDao
-                      .deleteFollower(userIdToUpdate,
-                                  updates, followerToDelete);
+    .deleteFollower(userIdToUpdate,
+      updates, followerToDelete);
   res.json(status);
 }
 
@@ -38,8 +38,8 @@ const addFollowing = async (req, res) => {
   const followingToAdd = req.params.fid;
   const updates = req.body;
   const status = await usersDao
-                      .addFollower(userIdToUpdate,
-                                updates, followingToAdd);
+    .addFollower(userIdToUpdate,
+      updates, followingToAdd);
   res.json(status);
 }
 
@@ -48,8 +48,8 @@ const deleteFollowing = async (req, res) => {
   const followingToDelete = req.params.fid;
   const updates = req.body;
   const status = await usersDao
-                      .deleteFollower(userIdToUpdate,
-                                  updates, followingToDelete);
+    .deleteFollower(userIdToUpdate,
+      updates, followingToDelete);
   res.json(status);
 }
 
@@ -79,7 +79,7 @@ const createUser = async (req, res) => {
     return
   }
   const insertedUser = await usersDao
-                            .createUsers(newUser);
+    .createUsers(newUser);
   res.json(insertedUser);
 }
 
@@ -93,8 +93,8 @@ const updateUser = async (req, res) => {
   const userIdToUpdate = req.params.uid;
   const updates = req.body;
   const status = await usersDao
-                       .updateUsers(userIdToUpdate,
-                                   updates);
+    .updateUsers(userIdToUpdate,
+      updates);
   res.json(status);
 }
 
