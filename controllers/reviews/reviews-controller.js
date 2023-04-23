@@ -12,6 +12,7 @@ const ReviewController = (app) => {
   app.get('/api/reviews/album/:aid', findReviewsByAlbumId);
   app.get('/api/reviews/curator', findCuratorReviews)
   app.get('/api/reviews/user/:uid', findReviewsByUserId)
+  app.get('/api/reviews/tags/:tid', findReviewsByTagId)
 }
 
 const findCuratorReviews = async (req, res) => {
@@ -21,6 +22,11 @@ const findCuratorReviews = async (req, res) => {
 
 const findReviewsByUserId = async (req, res) => {
   const reviews = await reviewsDao.findReviewsByUserId(req.params.uid)
+  res.json(reviews)
+}
+
+const findReviewsByTagId = async (req, res) => {
+  const reviews = await reviewsDao.findReviewsbyTags(req.params.tid)
   res.json(reviews)
 }
 

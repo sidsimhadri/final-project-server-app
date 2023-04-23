@@ -5,6 +5,7 @@ export const findCuratorReviews = () => reviewsModel.find({ curator: true });
 export const findReviewsByUserId = (id) => reviewsModel.find({ userid: id });
 export const findReviewsbyId = (rid) => reviewsModel.findById({ _id: rid });
 export const findReviewsbyBody = (body) => reviewsModel.find({ body: body });
+export const findReviewsbyTags = (tag) => reviewsModel.find({ tags: tag }  );
 export const createReviews = (review) => reviewsModel.create(review);
 export const deleteReviews = (rid) => reviewsModel.deleteOne({ _id: rid });
 export const updateReviews = (rid, review) => reviewsModel.updateOne({ _id: rid }, { $set: review })
