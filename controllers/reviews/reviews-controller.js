@@ -70,8 +70,8 @@ const createReview = async (req, res) => {
     downvotes: 0,
     upvotesArr: [],
     downvotesArr: [],
-    albumid: req.body.albumId,
-    userid: req.body.userId,
+    albumId: req.body.albumId,
+    userId: req.body.userId,
     rating: req.body.rating,
     tags: req.body.tags
   }
