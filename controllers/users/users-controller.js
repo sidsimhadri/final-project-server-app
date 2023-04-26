@@ -7,53 +7,28 @@ const UserController = (app) => {
   app.post('/api/users', createUser);
   app.delete('/api/users/:uid', deleteUser);
   app.put('/api/users/:uid', updateUser);
-  app.put('/api/users/followed/:uid/:fid', addFollower);
-  app.put('/api/users/unfollowed/:uid/:fid', deleteFollower);
-  app.put('/api/users/follow/:uid/:fid', addFollowing);
-  app.put('/api/users/unfollow/:uid/:fid', deleteFollowing);
+  app.put('/api/users/follow/:uid/:fid', follow);
+  app.put('/api/users/unfollow/:uid/:fid', unfollow);
+
 }
 
-const addFollower = async (req, res) => {
-  const userIdToUpdate = req.params.uid;
-  const followerToAdd = req.params.fid;
-  const updates = req.body;
-  const status = await usersDao
-    .addFollower(userIdToUpdate,
-      updates, followerToAdd);
-  res.json(status);
+const follow = async (req, res) => {
+    try {
+        await usersDao.follow(req.params.uid, req.params.fid);
+        res.json({ success: true });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 }
 
-const deleteFollower = async (req, res) => {
-  const userIdToUpdate = req.params.uid;
-  const followerToDelete = req.params.fid;
-  const updates = req.body;
-  const status = await usersDao
-    .deleteFollower(userIdToUpdate,
-      updates, followerToDelete);
-  res.json(status);
+const unfollow = async (req, res) => {
+    try {
+        await usersDao.unfollow(req.params.uid, req.params.fid);
+        res.json({ success: true });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 }
-
-const addFollowing = async (req, res) => {
-  const userIdToUpdate = req.params.uid;
-  const followingToAdd = req.params.fid;
-  const updates = req.body;
-  const status = await usersDao
-    .addFollower(userIdToUpdate,
-      updates, followingToAdd);
-  res.json(status);
-}
-
-const deleteFollowing = async (req, res) => {
-  const userIdToUpdate = req.params.uid;
-  const followingToDelete = req.params.fid;
-  const updates = req.body;
-  const status = await usersDao
-    .deleteFollower(userIdToUpdate,
-      updates, followingToDelete);
-  res.json(status);
-}
-
-
 const findUsers = async (req, res) => {
   const users = await usersDao.findUsers()
   res.json(users)

@@ -11,6 +11,7 @@ const ReviewController = (app) => {
   app.put('/api/reviews/:rid/:tid', removeTag);
   app.get('/api/reviews/album/:aid', findReviewsByAlbumId);
   app.get('/api/reviews/curator', findCuratorReviews)
+  app.get('/api/reviews/following/:uid', findCuratorReviews)
   app.get('/api/reviews/user/:uid', findReviewsByUserId)
   app.get('/api/reviews/tags/:tid', findReviewsByTagId)
 }

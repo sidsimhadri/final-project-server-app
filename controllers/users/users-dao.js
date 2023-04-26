@@ -10,41 +10,12 @@ export const createUsers = (user) => usersModel.create(user);
 export const deleteUsers = (uid) => usersModel.deleteOne({ _id: uid });
 export const updateUsers = (uid, user) => usersModel.updateOne({ _id: uid }, { $set: user })
 
-export const addFollowing = (uid, user, fid) =>
-{
-    newUser = {
-        ...user,
-        following: user.following.push(fid)
-    }
-    usersModel.updateOne({ _id: uid }, { $set: newUser })
-}
-export const deleteFollowing = (uid, user, fid) =>
-{
-    newFollowing = review.tags.filter( follow => follow != fid)
-
-    newUser = {
-        ...user,
-        following: newFollowing
-    }
-    usersModel.updateOne({ _id: uid }, { $set: newUser })
+export const follow = async (uid, fid) => {
+    await usersModel.updateOne({ _id: uid }, { $push: { following: fid } });
+    await usersModel.updateOne({ _id: fid }, { $push: { followers: uid } });
 }
 
-export const addFollower = (uid, user, fid) =>
-{
-    newUser = {
-        ...user,
-        followers: user.followers.push(fid)
-    }
-    usersModel.updateOne({ _id: uid }, { $set: newUser })
+export const unfollow = async (uid, fid) => {
+    await usersModel.updateOne({ _id: uid }, { $pull: { following: fid } });
+    await usersModel.updateOne({ _id: fid }, { $pull: { followers: uid } });
 }
-export const deleteFollower = (uid, user, fid) =>
-{
-    newFollowers = review.tags.filter( follow => follow != fid)
-
-    newUser = {
-        ...user,
-        followers: newFollowers
-    }
-    usersModel.updateOne({ _id: uid }, { $set: newUser })
-}
-
